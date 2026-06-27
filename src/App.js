@@ -35,6 +35,10 @@ window.App = function App() {
   return <DutyFreePage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
   }
 
+  if (page === "invoice") {
+  return <ViewInvoicePage setPage={setPage} invoiceItems={invoiceItems} />;
+  }
+
   const capitalizeName = (name = "") => {
     return name
       .split(" ")
