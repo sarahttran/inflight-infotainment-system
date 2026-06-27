@@ -32,11 +32,11 @@ window.App = function App() {
   }
 
   if (page === "dutyfree") {
-  return <DutyFreePage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
+    return <DutyFreePage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
   }
 
   if (page === "invoice") {
-  return <ViewInvoicePage setPage={setPage} invoiceItems={invoiceItems} />;
+    return <ViewInvoicePage setPage={setPage} invoiceItems={invoiceItems} />;
   }
 
   const capitalizeName = (name = "") => {
@@ -51,7 +51,7 @@ window.App = function App() {
       <section className="home-grid">
         <button className="feature-card">Media</button>
         <button className="feature-card">Flight Info</button>
-        <button className="feature-card" onClick={() => setPage("food")}>Food Services</button>
+        <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
         <button className="feature-card">Profile/Settings</button>
       </section>
     </PageShell>

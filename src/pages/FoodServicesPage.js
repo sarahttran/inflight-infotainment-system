@@ -6,7 +6,12 @@ window.FoodServicesPage = function FoodServicesPage({ setPage, addInvoiceItem })
         <button className="feature-card" onClick={() => setPage("dutyfree")}>Duty-Free Shopping</button>
         <button className="feature-card" onClick={() => setPage("invoice")}>View Invoice</button>
       </section>
-      <button className="primary-button" onClick={() => setPage("attendant")}>Call Flight Attendant</button>
+
+      <div style={{ marginTop: "30px" }}>
+        <button className="primary-button" onClick={() => alert("Flight attendant has been called!")}>
+          🔔 Call Flight Attendant
+        </button>
+      </div>
     </PageShell>
   );
 };
