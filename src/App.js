@@ -1,6 +1,13 @@
 window.App = function App() {
   const [page, setPage] = React.useState("welcome");
   const [profile, setProfile] = React.useState(null);
+  const [invoiceItems, setInvoiceItems] = React.useState([]);
+
+  function addInvoiceItem(category, name, price) {
+    setInvoiceItems(function(prev) {
+      return [...prev, { category, name, price }];
+    });
+  }
 
   function startGuest() {
     setProfile({ name: "Guest", isGuest: true });
@@ -17,7 +24,11 @@ window.App = function App() {
   }
 
   if (page === "food") {
-    return <FoodServicesPage setPage={setPage} />;
+    return <FoodServicesPage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
+  }
+
+  if (page === "foodbev") {
+    return <FoodBeveragePage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
   }
 
   const capitalizeName = (name = "") => {
@@ -32,7 +43,7 @@ window.App = function App() {
       <section className="home-grid">
         <button className="feature-card">Media</button>
         <button className="feature-card">Flight Info</button>
-        <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
+        <button className="feature-card" onClick={() => setPage("food")}>Food Services</button>
         <button className="feature-card">Profile/Settings</button>
       </section>
     </PageShell>
