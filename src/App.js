@@ -39,6 +39,10 @@ window.App = function App() {
     return <ViewInvoicePage setPage={setPage} invoiceItems={invoiceItems} />;
   }
 
+  if (page === "flight-info") {
+    return <FlightInfoPage setPage={setPage} />;
+  }
+
   const capitalizeName = (name = "") => {
     return name
       .split(" ")
@@ -50,7 +54,7 @@ window.App = function App() {
     <PageShell title={"Welcome, " + capitalizeName(profile.name)} setPage={setPage}>
       <section className="home-grid">
         <button className="feature-card">Media</button>
-        <button className="feature-card">Flight Info</button>
+        <button className="feature-card" onClick={() => setPage("flight-info")}>Flight Info</button>
         <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
         <button className="feature-card">Profile/Settings</button>
       </section>
