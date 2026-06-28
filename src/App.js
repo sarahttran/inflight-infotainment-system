@@ -40,7 +40,14 @@ window.App = function App() {
   }
 
   if (page === "flight-info") {
-    return <FlightInfoPage setPage={setPage} />;
+    const invoiceTotal = invoiceItems.reduce((sum, item) => sum + item.price, 0);
+    return (
+      <FlightInfoPage
+        setPage={setPage}
+        profileName={profile.name}
+        invoiceTotal={invoiceTotal}
+      />
+    );
   }
 
   const capitalizeName = (name = "") => {

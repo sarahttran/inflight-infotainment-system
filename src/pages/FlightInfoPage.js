@@ -1,4 +1,4 @@
-window.FlightInfoPage = function FlightInfoPage({ setPage }) {
+window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceTotal }) {
   const flightStats = [
     { label: "Estimated location", value: "Near Wichita, Kansas" },
     { label: "ETA", value: "6:07 PM PT" },
@@ -118,6 +118,9 @@ window.FlightInfoPage = function FlightInfoPage({ setPage }) {
 
             <h3>Flight Attendant Message</h3>
             <p>Beverage service is underway. Please remain seated whenever the seatbelt sign is illuminated.</p>
+            {invoiceTotal > 500 && (
+              <p><strong>{profileName || "Guest"} is a big spender!</strong></p>
+            )}
           </div>
         </section>
 
