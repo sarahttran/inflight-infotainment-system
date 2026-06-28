@@ -175,6 +175,69 @@ select {
   background: #f8fbff;
 }
 
+/* Flight Information & Safety */
+.flight-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.flight-info > .page-note,
+.flight-info .feature-card p {
+  margin-bottom: 0;
+}
+
+.flight-info section > h2 {
+  margin-bottom: 10px;
+}
+
+.flight-info .home-grid {
+  margin-top: 0;
+}
+
+.flight-info .feature-card {
+  min-height: 110px;
+  padding: 16px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.flight-info .feature-card p {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.flight-info .flight-info__map {
+  overflow: hidden;
+  padding: 12px;
+}
+
+.flight-info .flight-info__map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.flight-info .flight-info__messages p,
+.flight-info .flight-info__safety li {
+  line-height: 1.5;
+}
+
+.flight-info .flight-info__messages hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid #d7dee8;
+}
+
+.flight-info .flight-info__safety ul {
+  padding-left: 22px;
+}
+
+.flight-info .flight-info__safety li {
+  margin-bottom: 8px;
+}
+
 /* Mobile portrait layout */
 @media (max-width: 600px) {
   .top-bar {
