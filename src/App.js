@@ -48,6 +48,18 @@ window.App = function App() {
         invoiceTotal={invoiceTotal}
       />
     );
+  
+  }
+  if (page === "media") {
+    return <MediaPage setPage={setPage} />;
+  }
+
+  if (page === "movie-details") {
+    return <MovieDetailsPage setPage={setPage} />;
+  }
+
+  if (page === "destination") {
+    return <DestinationPage setPage={setPage} />;
   }
 
   const capitalizeName = (name = "") => {
@@ -60,7 +72,7 @@ window.App = function App() {
   return (
     <PageShell title={"Welcome, " + capitalizeName(profile.name)} setPage={setPage}>
       <section className="home-grid">
-        <button className="feature-card">Media</button>
+        <button className="feature-card" onClick={() => setPage("media")}>Media</button>
         <button className="feature-card" onClick={() => setPage("flight-info")}>Flight Info</button>
         <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
         <button className="feature-card">Profile/Settings</button>
