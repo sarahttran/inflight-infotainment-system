@@ -40,11 +40,11 @@ window.DestinationPage = function DestinationPage({ setPage }) {
 
       <div className="button-row">
         <button
-          className="primary-button"
+          className="back-button"
           onClick={() => setPage("media")}
         >
-          ← Back to Media
-        </button>
+          ← Back
+      </button>
       </div>
 
     </PageShell>
