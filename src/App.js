@@ -39,6 +39,14 @@ window.App = function App() {
     return <ViewInvoicePage setPage={setPage} invoiceItems={invoiceItems} />;
   }
 
+  if (page === "phonecall") {
+  return <PhoneCallPage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
+  }
+
+  if (page === "reportissue") {
+  return <ReportIssuePage setPage={setPage} />;
+  }
+
   if (page === "flight-info") {
     const invoiceTotal = invoiceItems.reduce((sum, item) => sum + item.price, 0);
     return (
