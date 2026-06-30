@@ -19,6 +19,12 @@ window.App = function App() {
     setPage("home");
   }
 
+  function addInvoiceItem(category, name, price, paymentMethod) {
+    setInvoiceItems(function(prev) {
+    return [...prev, { category, name, price, paymentMethod: paymentMethod || "Credit Card" }];
+    });
+  } 
+
   if (page === "welcome") {
     return <WelcomePage startGuest={startGuest} createProfile={createProfile} />;
   }
