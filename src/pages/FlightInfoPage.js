@@ -8,7 +8,7 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
   ];
 
   return (
-    <PageShell title="Flight Information & Safety" setPage={setPage}>
+    <PageShell title="Flight Information & Safety" setPage={setPage} backTo="home">
       <div className="flight-info">
         <p className="page-note">
           Flight 247 from Baltimore/Washington (BWI) to Los Angeles (LAX).

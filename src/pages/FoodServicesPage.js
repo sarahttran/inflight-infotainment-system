@@ -1,6 +1,6 @@
 window.FoodServicesPage = function FoodServicesPage({ setPage, addInvoiceItem }) {
   return (
-    <PageShell title="Food & Services" setPage={setPage}>
+    <PageShell title="Food & Services" setPage={setPage} backTo="home">
       <section className="home-grid">
         <button className="feature-card" onClick={() => setPage("foodbev")}>Food & Beverage</button>
         <button className="feature-card" onClick={() => setPage("dutyfree")}>Duty-Free Shopping</button>

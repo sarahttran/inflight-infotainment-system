@@ -27,7 +27,7 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
 
   if (purchased) {
     return (
-      <PageShell title="Duty-Free Shopping" setPage={setPage}>
+      <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="food">
         <div style={{ textAlign: "center", marginTop: "40px" }}>
           <h2>Purchase Complete!</h2>
           <p>Your items have been added to your invoice.</p>
@@ -38,7 +38,7 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
   }
 
   return (
-    <PageShell title="Duty-Free Shopping" setPage={setPage}>
+    <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="food">
       <h2>Catalog</h2>
       <section className="home-grid">
         {catalog.map(function(item, index) {
