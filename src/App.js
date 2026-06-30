@@ -1,7 +1,129 @@
+const FLIGHT_UPDATE_INTERVAL_MS = 60 * 1000;
+const INITIAL_TIME_REMAINING_MINUTES = 166;
+const INITIAL_FLIGHT_PROGRESS = 0.48;
+const SIMULATED_MINUTES_PER_UPDATE = 2;
+
+function formatFlightTime(date, timeZone, suffix, includeSeconds) {
+  const options = {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: timeZone
+  };
+
+  if (includeSeconds) {
+    options.second = "2-digit";
+  }
+
+  return new Intl.DateTimeFormat("en-US", options).format(date) + " " + suffix;
+}
+
+function formatTimeRemaining(totalMinutes) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  if (hours === 0) {
+    return minutes + " min";
+  }
+
+  return hours + " hr " + minutes + " min";
+}
+
+function createSimulatedFlightData(sessionStartedAt, currentTime) {
+  const elapsedSessionMinutes = Math.floor(
+    (currentTime.getTime() - sessionStartedAt) / FLIGHT_UPDATE_INTERVAL_MS
+  );
+  const simulatedElapsedMinutes = elapsedSessionMinutes * SIMULATED_MINUTES_PER_UPDATE;
+  const remainingMinutes = Math.max(
+    0,
+    INITIAL_TIME_REMAINING_MINUTES - simulatedElapsedMinutes
+  );
+  const progress = Math.min(
+    1,
+    INITIAL_FLIGHT_PROGRESS +
+      (simulatedElapsedMinutes / INITIAL_TIME_REMAINING_MINUTES) *
+        (1 - INITIAL_FLIGHT_PROGRESS)
+  );
+  const progressPercent = (progress * 100).toFixed(1);
+  const eta = new Date(currentTime.getTime() + remainingMinutes * 60 * 1000);
+  const altitudePattern = [36000, 35900, 36100, 36000, 36200, 35900];
+  const speedPattern = [548, 543, 551, 546, 554, 545];
+  const weatherPattern = [
+    {
+      departure: "Sunny, 82\u00B0F",
+      destination: "Partly cloudy, 71\u00B0F"
+    },
+    {
+      departure: "Sunny, 83\u00B0F",
+      destination: "Partly cloudy, 72\u00B0F"
+    },
+    {
+      departure: "Mostly sunny, 82\u00B0F",
+      destination: "Mostly sunny, 72\u00B0F"
+    }
+  ];
+  const patternIndex = elapsedSessionMinutes % altitudePattern.length;
+  const weather = weatherPattern[elapsedSessionMinutes % weatherPattern.length];
+  let location = "Near Wichita, Kansas";
+
+  if (progress >= 0.9) {
+    location = "Approaching Los Angeles, California";
+  } else if (progress >= 0.78) {
+    location = "Over northern Arizona";
+  } else if (progress >= 0.66) {
+    location = "Over eastern New Mexico";
+  } else if (progress >= 0.54) {
+    location = "Over western Kansas";
+  }
+
+  const descending = remainingMinutes < 30;
+  const altitude = remainingMinutes === 0
+    ? 0
+    : descending
+      ? Math.max(3000, Math.round((remainingMinutes / 30) * 36000 / 100) * 100)
+      : altitudePattern[patternIndex];
+  const speed = remainingMinutes === 0
+    ? 0
+    : descending
+      ? Math.max(180, Math.round(remainingMinutes / 30 * 545))
+      : speedPattern[patternIndex];
+
+  return {
+    currentLocation: location + " (" + progressPercent + "% complete)",
+    eta: formatFlightTime(eta, "America/Los_Angeles", "PT", false),
+    timeRemaining: formatTimeRemaining(remainingMinutes),
+    altitude: altitude,
+    speed: speed,
+    departureWeather: weather.departure,
+    destinationWeather: weather.destination,
+    bwiLocalTime: formatFlightTime(currentTime, "America/New_York", "ET", false),
+    laxLocalTime: formatFlightTime(currentTime, "America/Los_Angeles", "PT", false),
+    updatedAt: formatFlightTime(currentTime, "America/Chicago", "CT", true),
+    progress: progress,
+    progressPercent: progressPercent
+  };
+}
+
 window.App = function App() {
   const [page, setPage] = React.useState("welcome");
   const [profile, setProfile] = React.useState(null);
   const [invoiceItems, setInvoiceItems] = React.useState([]);
+  const sessionStartedAt = React.useRef(Date.now());
+  const [flightData, setFlightData] = React.useState(function() {
+    return createSimulatedFlightData(sessionStartedAt.current, new Date());
+  });
+
+  React.useEffect(function() {
+    function updateFlightData() {
+      setFlightData(createSimulatedFlightData(sessionStartedAt.current, new Date()));
+    }
+
+    updateFlightData();
+    const intervalId = window.setInterval(updateFlightData, FLIGHT_UPDATE_INTERVAL_MS);
+
+    return function() {
+      window.clearInterval(intervalId);
+    };
+  }, []);
 
   function addInvoiceItem(category, name, price) {
     setInvoiceItems(function(prev) {
@@ -38,6 +160,8 @@ window.App = function App() {
     });
     setPage("home");
   }
+
+  function renderCurrentPage() {
 
   if (page === "welcome") {
     return <WelcomePage startGuest={startGuest} createProfile={createProfile} />;
@@ -84,6 +208,7 @@ window.App = function App() {
         setPage={setPage}
         profileName={profile.name}
         invoiceTotal={invoiceTotal}
+        flightData={flightData}
       />
     );
   
@@ -123,5 +248,12 @@ window.App = function App() {
         </button>      
       </section>
     </PageShell>
+  );
+  }
+
+  return (
+    <window.FlightDataContext.Provider value={flightData}>
+      {renderCurrentPage()}
+    </window.FlightDataContext.Provider>
   );
 };
