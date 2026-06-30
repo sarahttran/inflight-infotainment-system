@@ -100,6 +100,16 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
 
   return (
     <PageShell title="Recommended For You" setPage={setPage}>
+
+      <div className="button-row" style={{ marginBottom: "20px" }}>
+        <button
+          className="back-button"
+          onClick={() => setPage("media")}
+        >
+          ← Back
+        </button>
+      </div>
+
       {!favoriteGenre ? (
         <div className="placeholder-box">
           <h2>No Preferred Genre Selected</h2>
@@ -112,10 +122,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
             <button className="primary-button" onClick={function() { setPage("profile-settings"); }}>
               Go to Profile/Settings
             </button>
-
-            <button className="back-button" onClick={function() { setPage("media"); }}>
-              ← Back
-            </button>
+            
           </div>
         </div>
       ) : (

@@ -125,9 +125,9 @@ window.App = function App() {
     };
   }, []);
 
-  function addInvoiceItem(category, name, price) {
+  function addInvoiceItem(category, name, price, paymentMethod) {
     setInvoiceItems(function(prev) {
-      return [...prev, { category, name, price }];
+      return [...prev, { category, name, price, paymentMethod: paymentMethod || "Credit Card" }];
     });
   }
 
@@ -194,11 +194,11 @@ window.App = function App() {
   }
 
   if (page === "phonecall") {
-  return <PhoneCallPage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
+    return <PhoneCallPage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
   }
 
   if (page === "reportissue") {
-  return <ReportIssuePage setPage={setPage} />;
+    return <ReportIssuePage setPage={setPage} />;
   }
 
   if (page === "flight-info") {
@@ -211,7 +211,6 @@ window.App = function App() {
         flightData={flightData}
       />
     );
-  
   }
 
   if (page === "media") {
@@ -245,7 +244,7 @@ window.App = function App() {
         <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
         <button className="feature-card" onClick={() => setPage("profile-settings")}>
           Profile/Settings
-        </button>      
+        </button>
       </section>
     </PageShell>
   );
