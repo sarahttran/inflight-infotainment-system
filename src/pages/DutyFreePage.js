@@ -7,11 +7,10 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
   const [cardCVV, setCardCVV] = React.useState("");
 
   const catalog = [
-    { name: "Perfume - Chanel No. 5", price: 45.00 },
-    { name: "Whiskey - Johnnie Walker", price: 38.00 },
-    { name: "Chocolate Box", price: 12.00 },
-    { name: "Sunglasses", price: 25.00 },
-    { name: "Skincare Set", price: 30.00 },
+    { name: "Perfume - Chanel No. 5", price: 80.00, image: "./assets/chanel.avif" },
+    { name: "Travel Set - Blanket & Eye Mask", price: 30.00, image: "./assets/travel-set.jpg" },
+    { name: "Sunglasses", price: 25.00, image: "./assets/sunglasses.webp" },
+    { name: "Skincare Set", price: 30.00, image: "./assets/skincare.webp" },
   ];
 
   function addToCart(item) {
@@ -44,7 +43,10 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
           <h2>Purchase Complete!</h2>
           <p>Paid by credit card ending in {cardNumber.slice(-4)}.</p>
           <p>Your items have been added to your invoice.</p>
-          <button className="primary-button" onClick={() => setPage("food")}>Back to Food & Services</button>
+
+          <button className="primary-button" onClick={() => setPage("food")}>
+            Back to Food & Services
+          </button>
         </div>
       </PageShell>
     );
@@ -92,13 +94,24 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
   return (
     <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="food">
       <h2>Catalog</h2>
-      <section className="home-grid">
+
+      <section className="item-menu-grid">
         {catalog.map(function(item, index) {
           return (
-            <div key={index} className="feature-card">
-              <p><strong>{item.name}</strong></p>
-              <p>${item.price.toFixed(2)}</p>
-              <button className="primary-button" onClick={() => addToCart(item)}>+ Add</button>
+            <div key={index} className="item-card">
+              <img
+                className="item-image"
+                src={item.image}
+                alt={item.name}
+              />
+
+              <h3 className="item-title">{item.name}</h3>
+
+              <p className="item-price">${item.price.toFixed(2)}</p>
+
+              <button className="primary-button" onClick={() => addToCart(item)}>
+                + Add
+              </button>
             </div>
           );
         })}
@@ -106,15 +119,25 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
 
       <div style={{ marginTop: "20px" }}>
         <h2>Cart</h2>
+
         {cart.length === 0 && <p>No items in cart.</p>}
+
         {cart.map(function(item, index) {
           return (
-            <div key={index} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0" }}>
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "5px 0"
+              }}
+            >
               <span>{item.name}</span>
               <span>${item.price.toFixed(2)}</span>
             </div>
           );
         })}
+
         {cart.length > 0 && (
           <div>
             <hr />

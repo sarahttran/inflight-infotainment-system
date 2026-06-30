@@ -10,12 +10,12 @@ window.FoodBeveragePage = function FoodBeveragePage({ setPage, addInvoiceItem })
   const statuses = ["Received", "Preparing", "On the way", "Delivered"];
 
   const menuItems = [
-    { name: "Grilled Chicken Wrap", price: 8.50 },
-    { name: "Pasta Primavera", price: 7.00 },
-    { name: "Caesar Salad", price: 6.50 },
-    { name: "Orange Juice", price: 3.00 },
-    { name: "Water", price: 1.50 },
-    { name: "Coffee", price: 2.50 },
+    { name: "Grilled Chicken Wrap", price: 8.50, image: "./assets/wrap.jpg" },
+    { name: "Pasta Primavera", price: 7.00, image: "./assets/pasta.jpeg" },
+    { name: "Caesar Salad", price: 6.50, image: "./assets/caesar-salad.avif" },
+    { name: "Orange Juice", price: 3.00, image: "./assets/orange-juice.png" },
+    { name: "Water", price: 1.50, image: "./assets/water.jpg" },
+    { name: "Coffee", price: 2.50, image: "./assets/coffee.webp" },
   ];
 
   function addToOrder(item) {
@@ -133,12 +133,19 @@ window.FoodBeveragePage = function FoodBeveragePage({ setPage, addInvoiceItem })
   return (
     <PageShell title="Food & Beverage" setPage={setPage} backTo="food">
       <h2>Menu</h2>
-      <section className="home-grid">
+      <section className="item-menu-grid">
         {menuItems.map(function(item, index) {
           return (
-            <div key={index} className="feature-card">
+            <div key={index} className="item-card">
+              <img 
+                className="item-image"
+                src={item.image}
+                alt={item.name}
+              />
+
               <p><strong>{item.name}</strong></p>
               <p>${item.price.toFixed(2)}</p>
+
               <button className="primary-button" onClick={() => addToOrder(item)}>
                 + Add
               </button>
