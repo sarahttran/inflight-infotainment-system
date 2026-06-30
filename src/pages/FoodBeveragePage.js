@@ -131,7 +131,7 @@ window.FoodBeveragePage = function FoodBeveragePage({ setPage, addInvoiceItem })
   }
 
   return (
-    <PageShell title="Food & Beverage" setPage={setPage}>
+    <PageShell title="Food & Beverage" setPage={setPage} backTo="food">
       <h2>Menu</h2>
       <section className="home-grid">
         {menuItems.map(function(item, index) {

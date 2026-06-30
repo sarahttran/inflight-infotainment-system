@@ -55,7 +55,7 @@ window.PhoneCallPage = function PhoneCallPage({ setPage, addInvoiceItem }) {
   if (screen === "dial") {
     var keys = ["1","2","3","4","5","6","7","8","9","*","0","#"];
     return (
-      <PageShell title="In-Flight Phone Call" setPage={setPage}>
+      <PageShell title="In-Flight Phone Call" setPage={setPage} backTo="food">
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <p style={{ fontSize: "1.4rem", fontWeight: "bold", minHeight: "2rem" }}>
             {formatPhoneDisplay(phoneNumber) || "Enter destination number"}

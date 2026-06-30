@@ -10,12 +10,32 @@ window.App = function App() {
   }
 
   function startGuest() {
-    setProfile({ name: "Guest", isGuest: true });
+    setProfile({
+      name: "Guest",
+      email: "",
+      isGuest: true,
+      preferences: {
+        genre: "",
+        language: "English",
+        textSize: "Medium",
+        theme: "Light"
+      }
+    });
     setPage("home");
   }
 
   function createProfile(name, email) {
-    setProfile({ name: name, email: email, isGuest: false });
+    setProfile({
+      name: name,
+      email: email,
+      isGuest: false,
+      preferences: {
+        genre: "",
+        language: "English",
+        textSize: "Medium",
+        theme: "Light"
+      }
+    });
     setPage("home");
   }
 
@@ -27,6 +47,16 @@ window.App = function App() {
 
   if (page === "welcome") {
     return <WelcomePage startGuest={startGuest} createProfile={createProfile} />;
+  }
+
+  if (page === "profile-settings") {
+    return (
+      <ProfileSettingsPage
+        setPage={setPage}
+        profile={profile}
+        setProfile={setProfile}
+      />
+    );
   }
 
   if (page === "food") {
@@ -62,6 +92,23 @@ window.App = function App() {
         invoiceTotal={invoiceTotal}
       />
     );
+  
+  }
+
+  if (page === "media") {
+    return <MediaPage setPage={setPage} profile={profile} />;
+  }
+
+  if (page === "recommended") {
+    return <RecommendedPage setPage={setPage} profile={profile} />;
+  }
+
+  if (page === "movie-details") {
+    return <MovieDetailsPage setPage={setPage} />;
+  }
+
+  if (page === "destination") {
+    return <DestinationPage setPage={setPage} />;
   }
 
   const capitalizeName = (name = "") => {
@@ -72,12 +119,14 @@ window.App = function App() {
   };
 
   return (
-    <PageShell title={"Welcome, " + capitalizeName(profile.name)} setPage={setPage}>
+    <PageShell title={"Welcome"} setPage={setPage}>
       <section className="home-grid">
-        <button className="feature-card">Media</button>
+        <button className="feature-card" onClick={() => setPage("media")}>Media</button>
         <button className="feature-card" onClick={() => setPage("flight-info")}>Flight Info</button>
         <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
-        <button className="feature-card">Profile/Settings</button>
+        <button className="feature-card" onClick={() => setPage("profile-settings")}>
+          Profile/Settings
+        </button>      
       </section>
     </PageShell>
   );
