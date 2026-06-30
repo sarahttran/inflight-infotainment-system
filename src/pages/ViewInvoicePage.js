@@ -9,11 +9,16 @@ window.ViewInvoicePage = function ViewInvoicePage({ setPage, invoiceItems }) {
         <div>
           {invoiceItems.map(function(item, index) {
             return (
-              <div key={index} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid #eee" }}>
-                <span>
-                  <strong>{item.category}</strong> — {item.name}
-                </span>
-                <span>${item.price.toFixed(2)}</span>
+              <div key={index} style={{ padding: "8px 0", borderBottom: "1px solid #eee" }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span>
+                    <strong>{item.category}</strong> — {item.name}
+                  </span>
+                  <span>${item.price.toFixed(2)}</span>
+                </div>
+                <p style={{ color: "#666", fontSize: "0.85rem", margin: "2px 0 0 0" }}>
+                  ✓ Paid by {item.paymentMethod || "Credit Card"}
+                </p>
               </div>
             );
           })}
