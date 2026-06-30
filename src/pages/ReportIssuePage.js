@@ -25,7 +25,7 @@ window.ReportIssuePage = function ReportIssuePage({ setPage }) {
   }
 
   return (
-    <PageShell title="Report Issue / Feedback" setPage={setPage}>
+    <PageShell title="Report Issue / Feedback" setPage={setPage} backTo="food">
       <div className="form-stack">
         <label>Issue Type
           <select value={issueType} onChange={function(e) { setIssueType(e.target.value); }}>

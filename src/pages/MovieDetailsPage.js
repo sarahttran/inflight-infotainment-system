@@ -4,7 +4,7 @@ window.MovieDetailsPage = function MovieDetailsPage({ setPage }) {
       <div className="details-card">
 
         <img
-          src="https://upload.wikimedia.org/wikipedia/en/e/e7/Jurassic_Park_poster.jpg"
+          src="./assets/jurassic-park.jpg"
           alt="Jurassic Park"
           style={{
             width: "250px",

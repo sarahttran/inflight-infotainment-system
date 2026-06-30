@@ -22,7 +22,7 @@ window.WelcomePage = function WelcomePage({ startGuest, createProfile }) {
 
           <form onSubmit={handleCreateProfile} className="form-stack">
             <label>
-              Profile Name
+              Name
               <input
                 type="text"
                 value={name}

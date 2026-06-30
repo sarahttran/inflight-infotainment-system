@@ -1,6 +1,11 @@
-window.MediaPage = function MediaPage({ setPage }) {
+window.MediaPage = function MediaPage({ setPage, profile }) {
+  const favoriteGenre =
+    profile && profile.preferences && profile.preferences.genre
+      ? profile.preferences.genre
+      : "";
+
   return (
-    <PageShell title="Media & Content" setPage={setPage}>
+    <PageShell title="Media & Content" setPage={setPage} backTo="home">
       <section className="home-grid">
         <button
           className="feature-card"
@@ -25,7 +30,10 @@ window.MediaPage = function MediaPage({ setPage }) {
           Trending
         </button>
 
-        <button className="feature-card">
+        <button
+          className="feature-card"
+          onClick={() => setPage("recommended")}
+        >
           <span>⭐</span>
           Recommended
         </button>
@@ -38,6 +46,24 @@ window.MediaPage = function MediaPage({ setPage }) {
           Destination Attractions
         </button>
       </section>
+
+      <div className="placeholder-box" style={{ marginTop: "24px" }}>
+        <h2>Your Saved Preference</h2>
+
+        {favoriteGenre ? (
+          <p>
+            Favorite Genre: <strong>{favoriteGenre}</strong>
+          </p>
+        ) : (
+          <p>
+            No favorite genre selected yet. Go to Profile/Settings to choose one.
+          </p>
+        )}
+
+        <p>
+          Click Recommended to see suggestions based on your saved preference.
+        </p>
+      </div>
     </PageShell>
   );
 };

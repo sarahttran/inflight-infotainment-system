@@ -2,7 +2,7 @@ window.ViewInvoicePage = function ViewInvoicePage({ setPage, invoiceItems }) {
   const total = invoiceItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <PageShell title="My Invoice" setPage={setPage}>
+    <PageShell title="My Invoice" setPage={setPage} backTo="food">
       {invoiceItems.length === 0 ? (
         <p>No purchases made yet.</p>
       ) : (
@@ -24,9 +24,6 @@ window.ViewInvoicePage = function ViewInvoicePage({ setPage, invoiceItems }) {
           </div>
         </div>
       )}
-      <button className="primary-button" style={{ marginTop: "20px" }} onClick={() => setPage("food")}>
-        Back to Food & Services
-      </button>
     </PageShell>
   );
 };

@@ -31,7 +31,7 @@ window.FoodBeveragePage = function FoodBeveragePage({ setPage, addInvoiceItem })
   const total = order.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <PageShell title="Food & Beverage" setPage={setPage}>
+    <PageShell title="Food & Beverage" setPage={setPage} backTo="food">
       <h2>Menu</h2>
       <section className="home-grid">
         {menuItems.map(function(item, index) {
