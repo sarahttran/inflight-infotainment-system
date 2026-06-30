@@ -1,9 +1,35 @@
+window.FlightDataContext = React.createContext(null);
+
 window.TopBar = function TopBar() {
+  const flightData = React.useContext(window.FlightDataContext);
+
+  if (!flightData) {
+    return (
+      <header className="top-bar">
+        <span className="plane-icon" aria-hidden="true">&#9992;</span>
+        <strong>Flight BWI &rarr; LAX</strong>
+      </header>
+    );
+  }
+
   return (
     <header className="top-bar">
-      <span>✈</span>
-      <span>Flight BWI → LAX</span>
-      <span className="top-info">ETA: 6:07 PM</span>
+      <div className="top-bar__route">
+        <span className="plane-icon" aria-hidden="true">&#9992;</span>
+        <div>
+          <strong>Flight BWI &rarr; LAX</strong>
+          <span className="top-bar__location">{flightData.currentLocation}</span>
+        </div>
+      </div>
+
+      <div className="top-bar__details" aria-label="Current flight information">
+        <span><strong>ETA:</strong> {flightData.eta}</span>
+        <span><strong>Remaining:</strong> {flightData.timeRemaining}</span>
+        <span><strong>Altitude:</strong> {flightData.altitude.toLocaleString()} ft</span>
+        <span><strong>Speed:</strong> {flightData.speed} mph</span>
+        <span><strong>Weather:</strong> {flightData.destinationWeather}</span>
+        <span><strong>Updated:</strong> {flightData.updatedAt}</span>
+      </div>
     </header>
   );
 };

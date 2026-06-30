@@ -1,10 +1,34 @@
-window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceTotal }) {
+window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceTotal, flightData }) {
+  const routeStart = { x: 536, y: 151 };
+  const routeControl = { x: 340, y: 106 };
+  const routeEnd = { x: 116, y: 226 };
+  const progress = Math.max(0, Math.min(1, flightData.progress));
+  const remainingProgress = 1 - progress;
+  const planeX =
+    remainingProgress * remainingProgress * routeStart.x +
+    2 * remainingProgress * progress * routeControl.x +
+    progress * progress * routeEnd.x;
+  const planeY =
+    remainingProgress * remainingProgress * routeStart.y +
+    2 * remainingProgress * progress * routeControl.y +
+    progress * progress * routeEnd.y;
+  const tangentX =
+    2 * remainingProgress * (routeControl.x - routeStart.x) +
+    2 * progress * (routeEnd.x - routeControl.x);
+  const tangentY =
+    2 * remainingProgress * (routeControl.y - routeStart.y) +
+    2 * progress * (routeEnd.y - routeControl.y);
+  const planeAngle = Math.atan2(tangentY, tangentX) * 180 / Math.PI;
+  const planeTransform =
+    "translate(" + planeX.toFixed(1) + " " + planeY.toFixed(1) + ") " +
+    "rotate(" + planeAngle.toFixed(1) + ")";
+  const mapLocation = flightData.currentLocation.split(" (")[0];
   const flightStats = [
-    { label: "Estimated location", value: "Near Wichita, Kansas" },
-    { label: "ETA", value: "6:07 PM PT" },
-    { label: "Time remaining", value: "2 hr 46 min" },
-    { label: "Altitude", value: "36,000 ft" },
-    { label: "Speed", value: "548 mph" },
+    { label: "Estimated location", value: flightData.currentLocation },
+    { label: "ETA", value: flightData.eta },
+    { label: "Time remaining", value: flightData.timeRemaining },
+    { label: "Altitude", value: flightData.altitude.toLocaleString() + " ft" },
+    { label: "Speed", value: flightData.speed + " mph" },
   ];
 
   return (
@@ -12,14 +36,14 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
       <div className="flight-info">
         <p className="page-note">
           Flight 247 from Baltimore/Washington (BWI) to Los Angeles (LAX).
-          Sample information updated at 1:21 PM CT.
+          Simulated information updated at {flightData.updatedAt}.
         </p>
 
         <section>
           <h2>Flight Status</h2>
           <div className="placeholder-box">
             <p><strong>Departure:</strong> BWI at 10:35 AM ET</p>
-            <p><strong>Destination:</strong> LAX at 6:07 PM PT</p>
+            <p><strong>Destination:</strong> LAX, estimated arrival {flightData.eta}</p>
 
             <div className="home-grid flight-info__status-grid">
               {flightStats.map(function(stat) {
@@ -39,7 +63,11 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
           <div
             className="placeholder-box flight-info__map"
             role="img"
-            aria-label="Map of the United States showing a flight route from BWI in Maryland to LAX in California, with the plane over south-central Kansas near Wichita"
+            aria-label={
+              "Map of the United States showing a flight route from BWI to LAX, " +
+              "with the plane " + mapLocation + " at " + flightData.progressPercent +
+              " percent complete"
+            }
           >
             <svg viewBox="0 0 620 340" aria-hidden="true" focusable="false">
               <rect width="620" height="340" fill="#dceefa" />
@@ -68,7 +96,7 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
                 <circle r="3" fill="#1f2933" />
                 <text x="12" y="25" fill="#1f2933" fontSize="16" fontWeight="bold">LAX</text>
               </g>
-              <g transform="translate(316.1 150.5) rotate(168.2)">
+              <g transform={planeTransform}>
                 <circle r="17" fill="#6c94be" stroke="white" strokeWidth="3" />
                 <path
                   d="M-14 -2 L-4 -2 L2 -13 L7 -13 L5 -2 L14 1 L14 5 L5 4 L7 13 L2 13 L-4 4 L-14 4 Z"
@@ -76,14 +104,14 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
                 />
               </g>
               <text
-                x="316.1"
-                y="187"
+                x={planeX}
+                y={planeY + 37}
                 textAnchor="middle"
                 fill="#1f2933"
                 fontSize="14"
                 fontWeight="bold"
               >
-                Near Wichita
+                {mapLocation}
               </text>
             </svg>
           </div>
@@ -94,13 +122,13 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
           <div className="home-grid flight-info__weather-grid">
             <div className="feature-card">
               <strong>Baltimore, MD (BWI)</strong>
-              <p>Local time: 2:21 PM ET</p>
-              <p>Sunny, 82°F</p>
+              <p>Local time: {flightData.bwiLocalTime}</p>
+              <p>{flightData.departureWeather}</p>
             </div>
             <div className="feature-card">
               <strong>Los Angeles, CA (LAX)</strong>
-              <p>Local time: 11:21 AM PT</p>
-              <p>Partly cloudy, 71°F</p>
+              <p>Local time: {flightData.laxLocalTime}</p>
+              <p>{flightData.destinationWeather}</p>
             </div>
           </div>
         </section>
@@ -113,7 +141,7 @@ window.FlightInfoPage = function FlightInfoPage({ setPage, profileName, invoiceT
             <hr />
 
             <h3>Pilot Message</h3>
-            <p>We are cruising at 36,000 feet with smooth conditions ahead and expect to arrive a few minutes early.</p>
+            <p>We are cruising at {flightData.altitude.toLocaleString()} feet with smooth conditions ahead and expect to arrive a few minutes early.</p>
             <hr />
 
             <h3>Flight Attendant Message</h3>
