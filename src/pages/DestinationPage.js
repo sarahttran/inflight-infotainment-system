@@ -1,51 +1,60 @@
 window.DestinationPage = function DestinationPage({ setPage }) {
+  const attractions = [
+    {
+      name: "Universal Orlando Resort",
+      image: "./assets/universal.avif",
+      description:
+        "A world-famous theme park featuring exciting rides, entertainment, restaurants, and movie-themed attractions."
+    },
+    {
+      name: "Walt Disney World Resort",
+      image: "./assets/disney.webp",
+      description:
+        "Home to four theme parks, water parks, shopping, dining, and family-friendly attractions."
+    },
+    {
+      name: "Kennedy Space Center Visitor Complex",
+      image: "./assets/space-center.jpg",
+      description:
+        "Explore NASA history, see real spacecraft, and experience interactive space exhibits."
+    },
+    {
+      name: "ICON Park",
+      image: "./assets/ICON.jpg",
+      description:
+        "Entertainment destination featuring The Wheel, restaurants, shops, and live attractions."
+    }
+  ];
+
   return (
     <PageShell title="Destination Attractions" setPage={setPage}>
 
-      <div className="attraction-card">
-        <h3>Universal Orlando Resort</h3>
-
-        <p>
-          A world-famous theme park featuring exciting rides,
-          entertainment, restaurants, and movie-themed attractions.
-        </p>
-      </div>
-
-      <div className="attraction-card">
-        <h3>Walt Disney World Resort</h3>
-
-        <p>
-          Home to four theme parks, water parks, shopping,
-          dining, and family-friendly attractions.
-        </p>
-      </div>
-
-      <div className="attraction-card">
-        <h3>Kennedy Space Center Visitor Complex</h3>
-
-        <p>
-          Explore NASA history, see real spacecraft,
-          and experience interactive space exhibits.
-        </p>
-      </div>
-
-      <div className="attraction-card">
-        <h3>ICON Park</h3>
-
-        <p>
-          Entertainment destination featuring The Wheel,
-          restaurants, shops, and live attractions.
-        </p>
-      </div>
-
-      <div className="button-row">
+      <div className="button-row" style={{ marginBottom: "20px" }}>
         <button
           className="back-button"
           onClick={() => setPage("media")}
         >
           ← Back
-      </button>
+        </button>
       </div>
+
+      <section className="item-menu-grid">
+        {attractions.map(function(attraction, index) {
+          return (
+            <div key={index} className="item-card">
+              <img
+                className="item-image"
+                src={attraction.image}
+                alt={attraction.name}
+              />
+
+              <h3 className="item-title">{attraction.name}</h3>
+
+              <p>{attraction.description}</p>
+            </div>
+          );
+        })}
+      </section>
 
     </PageShell>
   );

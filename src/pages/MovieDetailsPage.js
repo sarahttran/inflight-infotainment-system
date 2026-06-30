@@ -1,6 +1,16 @@
 window.MovieDetailsPage = function MovieDetailsPage({ setPage }) {
   return (
     <PageShell title="Movie Details" setPage={setPage}>
+
+      <div className="button-row" style={{ marginBottom: "20px" }}>
+        <button
+          className="back-button"
+          onClick={() => setPage("media")}
+        >
+          ← Back
+        </button>
+      </div>
+
       <div className="details-card">
 
         <img
@@ -49,12 +59,6 @@ window.MovieDetailsPage = function MovieDetailsPage({ setPage }) {
             onClick={() => alert("Added to Favorites!")}
           >
             ❤ Add to Favorites
-          </button>
-
-          <button
-            onClick={() => setPage("media")}
-          >
-            ← Back
           </button>
         </div>
 
