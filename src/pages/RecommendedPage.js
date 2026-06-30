@@ -8,7 +8,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
     Family: [
       {
         title: "Finding Nemo",
-        image: "https://via.placeholder.com/250x375?text=Finding+Nemo",
+        image: "./assets/finding-nemo.jpg",
         genre: "Family",
         rating: "G",
         duration: "1 hr 40 min",
@@ -17,7 +17,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
       },
       {
         title: "Toy Story",
-        image: "https://via.placeholder.com/250x375?text=Toy+Story",
+        image: "./assets/toy-story.jpg",
         genre: "Family",
         rating: "G",
         duration: "1 hr 21 min",
@@ -26,7 +26,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
       },
       {
         title: "The Parent Trap",
-        image: "https://via.placeholder.com/250x375?text=The+Parent+Trap",
+        image: "./assets/the-parent-trap.jpg",
         genre: "Family / Comedy",
         rating: "PG",
         duration: "2 hr 8 min",
@@ -38,7 +38,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
     Action: [
       {
         title: "Jurassic Park",
-        image: "https://upload.wikimedia.org/wikipedia/en/e/e7/Jurassic_Park_poster.jpg",
+        image: "./assets/jurassic-park.jpg",
         genre: "Action / Adventure",
         rating: "PG-13",
         duration: "2 hr 7 min",
@@ -47,7 +47,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
       },
       {
         title: "Top Gun",
-        image: "https://via.placeholder.com/250x375?text=Top+Gun",
+        image: "./assets/top-gun.jpg",
         genre: "Action",
         rating: "PG",
         duration: "1 hr 50 min",
@@ -56,7 +56,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
       },
       {
         title: "Mission Impossible",
-        image: "https://via.placeholder.com/250x375?text=Mission+Impossible",
+        image: "./assets/mission-impossible.jpg",
         genre: "Action",
         rating: "PG-13",
         duration: "1 hr 50 min",
@@ -68,7 +68,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
     Comedy: [
       {
         title: "The Parent Trap",
-        image: "https://via.placeholder.com/250x375?text=The+Parent+Trap",
+        image: "./assets/the-parent-trap.jpg",
         genre: "Comedy / Family",
         rating: "PG",
         duration: "2 hr 8 min",
@@ -77,7 +77,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
       },
       {
         title: "School of Rock",
-        image: "https://via.placeholder.com/250x375?text=School+of+Rock",
+        image: "./assets/school-of-rock.jpg",
         genre: "Comedy",
         rating: "PG-13",
         duration: "1 hr 49 min",
@@ -86,7 +86,7 @@ window.RecommendedPage = function RecommendedPage({ setPage, profile }) {
       },
       {
         title: "Night at the Museum",
-        image: "https://via.placeholder.com/250x375?text=Night+at+the+Museum",
+        image: "./assets/night-at-the-museum.jpg",
         genre: "Comedy / Adventure",
         rating: "PG",
         duration: "1 hr 48 min",
