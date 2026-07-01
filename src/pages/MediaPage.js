@@ -9,23 +9,32 @@ window.MediaPage = function MediaPage({ setPage, profile }) {
       <section className="home-grid">
         <button
           className="feature-card"
-          onClick={() => setPage("movie-details")}
+          onClick={() => setPage("movie-catalog")}
         >
           <span>🎬</span>
           Movies
         </button>
 
-        <button className="feature-card">
+        <button
+          className="feature-card"
+          onClick={() => setPage("tv-catalog")}
+        >
           <span>📺</span>
           TV Shows
         </button>
 
-        <button className="feature-card">
+        <button
+          className="feature-card"
+          onClick={() => setPage("music-catalog")}
+        >
           <span>🎵</span>
           Music
         </button>
 
-        <button className="feature-card">
+        <button
+          className="feature-card"
+          onClick={() => setPage("trending")}
+        >
           <span>🔥</span>
           Trending
         </button>

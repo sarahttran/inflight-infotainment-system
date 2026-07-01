@@ -135,6 +135,14 @@ const [invoiceItems, setInvoiceItems] = React.useState(function() {
     return [];
   });
   
+  const [favoriteMovies, setFavoriteMovies] = React.useState([]);
+
+  const [selectedMovie, setSelectedMovie] = React.useState(null);
+  const [selectedShow, setSelectedShow] = React.useState(null);
+  const [selectedAlbum, setSelectedAlbum] = React.useState(null);
+  const [selectedLocation, setSelectedLocation] = React.useState(null);
+
+
   const sessionStartedAt = React.useRef(Date.now());
   const [flightData, setFlightData] = React.useState(function() {
     return createSimulatedFlightData(sessionStartedAt.current, new Date());
@@ -173,6 +181,16 @@ React.useEffect(function() {
   function addInvoiceItem(category, name, price, paymentMethod) {
     setInvoiceItems(function(prev) {
       return [...prev, { category, name, price, paymentMethod: paymentMethod || "Credit Card" }];
+    });
+  }
+
+  function addFavorite(movie) {
+    setFavoriteMovies(prev => {
+      if (prev.some(m => m.id === movie.id)) {
+        return prev;
+      }
+
+      return [...prev, movie];
     });
   }
 
@@ -263,19 +281,124 @@ React.useEffect(function() {
   }
 
   if (page === "media") {
-    return <MediaPage setPage={setPage} profile={profile} />;
-  }
-
-  if (page === "recommended") {
-    return <RecommendedPage setPage={setPage} profile={profile} />;
+    return (
+      <MediaPage
+        setPage={setPage}
+        profile={profile}
+        setSelectedMovie={setSelectedMovie}
+        setSelectedShow={setSelectedShow}
+        setSelectedAlbum={setSelectedAlbum}
+      />
+    );
   }
 
   if (page === "movie-details") {
-    return <MovieDetailsPage setPage={setPage} />;
+    return (
+      <MovieDetailsPage
+    setPage={setPage}
+    movie={selectedMovie}
+    addFavorite={addFavorite}
+    />
+    );
   }
 
+  if (page === "tv-catalog") {
+  return (
+    <TVCatalogPage
+      setPage={setPage}
+      shows={window.mediaData.shows}
+      setSelectedShow={setSelectedShow}
+    />
+    );
+  }
+
+  if (page === "tv-details") {
+  return (
+    <TVDetailsPage
+      setPage={setPage}
+      show={selectedShow}
+    />
+    );
+  }
+
+  if (page === "movie-catalog") {
+  return <MovieCatalogPage
+    setPage={setPage}
+    movies={mediaData.movies}
+    setSelectedMovie={setSelectedMovie}
+  />;
+  }
+
+  if (page === "favorite-movies") {
+    return (
+      <FavoriteMoviesPage
+        setPage={setPage}
+        favoriteMovies={favoriteMovies}
+      />
+    );
+  }
+  
+  if (page === "music-catalog") {
+    return (
+      <MusicCatalogPage
+        setPage={setPage}
+        albums={window.mediaData.music}
+        setSelectedAlbum={setSelectedAlbum}
+      />
+    );
+  }
+
+  if (page === "album-details") {
+    return (
+      <AlbumDetailsPage
+        setPage={setPage}
+        album={selectedAlbum}
+      />
+    );
+  }
+
+  if (page === "trending") {
+    return (
+      <TrendingPage
+        setPage={setPage}
+        movies={window.mediaData.movies.slice(0, 4)}
+        shows={window.mediaData.shows.slice(0, 4)}
+        setSelectedMovie={setSelectedMovie}
+        setSelectedShow={setSelectedShow}
+      />
+    );
+  }
+
+  if (page === "recommended") {
+    return (
+      <RecommendedPage
+        setPage={setPage}
+        profile={profile}
+        movies={window.mediaData.movies}
+        shows={window.mediaData.shows}
+        setSelectedMovie={setSelectedMovie}
+        setSelectedShow={setSelectedShow}
+    />
+  );
+}
+
   if (page === "destination") {
-    return <DestinationPage setPage={setPage} />;
+    return (
+      <DestinationPage
+        setPage={setPage}
+        locations={window.mediaData.locations}
+        setSelectedLocation={setSelectedLocation}
+      />
+    );
+  }
+
+  if (page === "attractions") {
+    return (
+      <AttractionsPage
+        setPage={setPage}
+        location={selectedLocation}
+      />
+    );
   }
 
   const capitalizeName = (name = "") => {
