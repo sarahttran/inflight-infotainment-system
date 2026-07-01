@@ -1,11 +1,33 @@
-window.MovieDetailsPage = function MovieDetailsPage({ setPage }) {
+window.MovieDetailsPage = function MovieDetailsPage({
+  setPage,
+  movie,
+  addFavorite
+}) {
+
+  if (!movie) {
+    return (
+      <PageShell title="Movie Details" setPage={setPage}>
+        <h2>No movie selected.</h2>
+
+        <div className="button-row" style={{ marginTop: "20px" }}>
+          <button
+            className="primary-button"
+            onClick={() => setPage("movie-catalog")}
+          >
+            ← Return to Movie Catalog
+          </button>
+        </div>
+      </PageShell>
+    );
+  }
+
   return (
-    <PageShell title="Movie Details" setPage={setPage}>
+    <PageShell title={movie.title} setPage={setPage}>
 
       <div className="button-row" style={{ marginBottom: "20px" }}>
         <button
           className="back-button"
-          onClick={() => setPage("media")}
+          onClick={() => setPage("movie-catalog")}
         >
           ← Back
         </button>
@@ -14,8 +36,8 @@ window.MovieDetailsPage = function MovieDetailsPage({ setPage }) {
       <div className="details-card">
 
         <img
-          src="./assets/jurassic-park.jpg"
-          alt="Jurassic Park"
+          src={movie.poster}
+          alt={movie.title}
           style={{
             width: "250px",
             borderRadius: "12px",
@@ -23,46 +45,58 @@ window.MovieDetailsPage = function MovieDetailsPage({ setPage }) {
           }}
         />
 
-        <h2>Jurassic Park (1993)</h2>
+        <h2>{movie.title} ({movie.year})</h2>
 
-        <p><strong>Genre:</strong> Adventure / Science Fiction</p>
+        <p>
+          <strong>Genre:</strong> {movie.genre}
+        </p>
 
-        <p><strong>Rating:</strong> PG-13</p>
+        <p>
+          <strong>Rating:</strong> {movie.rating}
+        </p>
 
-        <p><strong>Duration:</strong> 2 hr 7 min</p>
+        <p>
+          <strong>Duration:</strong> {movie.runtime}
+        </p>
 
         <p>
           <strong>Cast:</strong><br />
-          Sam Neill<br />
-          Laura Dern<br />
-          Jeff Goldblum<br />
-          Richard Attenborough
+
+          {movie.cast.map(actor => (
+            <React.Fragment key={actor}>
+              {actor}
+              <br />
+            </React.Fragment>
+          ))}
         </p>
 
         <p>
           <strong>Synopsis:</strong><br />
-          A group of scientists and visitors tour a revolutionary
-          theme park populated by cloned dinosaurs. When the park's
-          security systems fail, the dinosaurs escape and the visitors
-          must fight to survive.
+          {movie.description}
         </p>
 
         <div className="button-row">
+
           <button
             className="primary-button"
-            onClick={() => alert("Playing Jurassic Park...")}
+            onClick={() => alert("Playing " + movie.title + "...")}
           >
             ▶ Play
           </button>
 
           <button
-            onClick={() => alert("Added to Favorites!")}
+            onClick={() => {
+              addFavorite(movie);
+              alert(movie.title + " added to Favorites!");
+            }}
           >
             ❤ Add to Favorites
           </button>
+
         </div>
 
       </div>
+
     </PageShell>
   );
 };

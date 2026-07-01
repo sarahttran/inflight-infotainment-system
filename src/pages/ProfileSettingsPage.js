@@ -120,6 +120,7 @@ window.ProfileSettingsPage = function ProfileSettingsPage({ setPage, profile, se
             <option value="Family">Family</option>
             <option value="Action">Action</option>
             <option value="Comedy">Comedy</option>
+            <option value="Horror">Horror</option>
           </select>
         </label>
 
