@@ -38,7 +38,7 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
 
   if (screen === "purchased") {
     return (
-      <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="food">
+      <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="home">
         <div style={{ textAlign: "center", marginTop: "40px" }}>
           <h2>Purchase Complete!</h2>
           <p>Paid by credit card ending in {cardNumber.slice(-4)}.</p>
@@ -92,7 +92,7 @@ window.DutyFreePage = function DutyFreePage({ setPage, addInvoiceItem }) {
   }
 
   return (
-    <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="food">
+    <PageShell title="Duty-Free Shopping" setPage={setPage} backTo="home">
       <h2>Catalog</h2>
 
       <section className="item-menu-grid">

@@ -17,11 +17,12 @@ window.WelcomePage = function WelcomePage({ startGuest, createProfile }) {
   if (showForm) {
     return (
       <div className="welcome-screen">
-        <section className="welcome-card">
-          <h1>Create Profile</h1>
+        <section className="welcome-card welcome-card-animated">
+          <h1 className="welcome-title">Create Profile</h1>
+          <p className="welcome-subtitle">Set up your in-flight session.</p>
 
           <form onSubmit={handleCreateProfile} className="form-stack">
-            <label>
+            <label className="welcome-slide-left">
               Name
               <input
                 type="text"
@@ -31,7 +32,7 @@ window.WelcomePage = function WelcomePage({ startGuest, createProfile }) {
               />
             </label>
 
-            <label>
+            <label className="welcome-slide-right">
               Email
               <input
                 type="email"
@@ -41,8 +42,13 @@ window.WelcomePage = function WelcomePage({ startGuest, createProfile }) {
               />
             </label>
 
-            <button type="submit" className="primary-button">Save Profile</button>
-            <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
+            <button type="submit" className="primary-button welcome-button welcome-slide-left">
+              Save Profile
+            </button>
+
+            <button type="button" className="welcome-button welcome-slide-right" onClick={() => setShowForm(false)}>
+              Cancel
+            </button>
           </form>
         </section>
       </div>
@@ -51,16 +57,41 @@ window.WelcomePage = function WelcomePage({ startGuest, createProfile }) {
 
   return (
     <div className="welcome-screen">
-      <section className="welcome-card">
-        <h1>Welcome</h1>
-        <p>Start your in-flight entertainment session.</p>
+      <section className="welcome-card welcome-card-animated">
+        <div className="welcome-logo welcome-logo-animated">
+          <div className="welcome-logo-icon">✈</div>
 
-        <button className="primary-button" onClick={startGuest}>
+          <div>
+            <div className="welcome-logo-main">Cloud</div>
+          </div>
+        </div>
+
+        <h1 className="welcome-title">Welcome</h1>
+        <p className="welcome-subtitle">Start your in-flight entertainment session</p>
+
+        <button className="primary-button welcome-button welcome-slide-left" onClick={startGuest}>
           Continue as Guest
         </button>
 
-        <button className="primary-button" onClick={() => setShowForm(true)}>
-            Create Profile
+        <button className="primary-button welcome-button welcome-slide-right" onClick={() => setShowForm(true)}>
+          Create Profile
+        </button>
+      </section>
+    </div>
+  );
+
+  return (
+    <div className="welcome-screen">
+      <section className="welcome-card welcome-card-animated">
+        <h1 className="welcome-title">Welcome</h1>
+        <p className="welcome-subtitle">Start your in-flight entertainment session.</p>
+
+        <button className="primary-button welcome-button welcome-slide-left" onClick={startGuest}>
+          Continue as Guest
+        </button>
+
+        <button className="primary-button welcome-button welcome-slide-right" onClick={() => setShowForm(true)}>
+          Create Profile
         </button>
       </section>
     </div>

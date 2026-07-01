@@ -60,18 +60,21 @@ button:hover {
 }
 
 .app-frame {
-  max-width: 1100px;
+  width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0;
   background: white;
   display: flex;
   flex-direction: column;
 }
 
 .top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
   padding: 16px 20px;
   border-bottom: 1px solid #d7dee8;
@@ -166,6 +169,9 @@ button:hover {
   gap: 12px;
   align-items: center;
   justify-content: center;
+  background: #92b6e5;
+  color: #000000;
+  border: 2px solid #6c94be;
 }
 
 .feature-card span {
@@ -465,4 +471,182 @@ select {
 
 .item-card .primary-button {
   margin-top: auto;
+}
+
+/* Welcome page animation */
+.welcome-card-animated {
+  animation: softReveal 0.7s ease-out;
+}
+
+.welcome-title {
+  font-size: clamp(42px, 7vw, 72px);
+  opacity: 0;
+  animation: fadeDrop 0.7s ease-out forwards;
+}
+
+.welcome-subtitle {
+  opacity: 0;
+  animation: fadeDrop 0.7s ease-out forwards;
+  animation-delay: 0.15s;
+}
+
+.welcome-button {
+  opacity: 0;
+}
+
+.welcome-slide-left {
+  animation: bounceInLeft 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+.welcome-slide-right {
+  animation: bounceInRight 0.8s ease-out forwards;
+  animation-delay: 0.45s;
+}
+
+@keyframes softReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateX(12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateX(-12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Flexible attendant logo */
+.welcome-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 16px);
+  margin-bottom: clamp(18px, 4vw, 32px);
+  text-align: left;
+}
+
+.welcome-logo-icon {
+  width: clamp(42px, 9vw, 72px);
+  height: clamp(42px, 9vw, 72px);
+  border-radius: 50%;
+  background: #6c94be;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 5vw, 38px);
+  box-shadow: 0 10px 20px rgba(108, 148, 190, 0.3);
+}
+
+.welcome-logo-main {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: bold;
+  line-height: 1;
+}
+
+.welcome-logo-sub {
+  font-size: clamp(12px, 2vw, 16px);
+  color: #52606d;
+  margin-top: 6px;
+}
+
+.welcome-logo-animated {
+  opacity: 0;
+  animation: logoReveal 0.9s ease-out forwards;
+}
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.9);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(6px) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Smaller phone screens */
+@media (max-width: 500px) {
+  .welcome-logo {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.floating-attendant-button {
+  position: fixed;
+  top: 105px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  background: #6c94be;
+  color: white;
+  font-size: 24px;
+  z-index: 999;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-attendant-button {
+  position: fixed;
+  top: 95px;
+  right: 24px;
 }
