@@ -125,7 +125,16 @@ window.App = function App() {
     return "welcome";
   });
 
-  const [invoiceItems, setInvoiceItems] = React.useState([]);
+const [invoiceItems, setInvoiceItems] = React.useState(function() {
+  const savedInvoiceItems = window.localStorage.getItem("invoiceItems");
+
+    if (savedInvoiceItems) {
+      return JSON.parse(savedInvoiceItems);
+    }
+
+    return [];
+  });
+  
   const sessionStartedAt = React.useRef(Date.now());
   const [flightData, setFlightData] = React.useState(function() {
     return createSimulatedFlightData(sessionStartedAt.current, new Date());
@@ -143,6 +152,10 @@ React.useEffect(function() {
 React.useEffect(function() {
   window.sessionStorage.setItem("page", page);
 }, [page]);
+
+React.useEffect(function() {
+  window.localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+}, [invoiceItems]);
 
 React.useEffect(function() {
   function updateFlightData() {
