@@ -1,4 +1,4 @@
-const FLIGHT_UPDATE_INTERVAL_MS = 60 * 1000;
+const FLIGHT_UPDATE_INTERVAL_MS = 5 * 1000;
 const INITIAL_TIME_REMAINING_MINUTES = 166;
 const INITIAL_FLIGHT_PROGRESS = 0.48;
 const SIMULATED_MINUTES_PER_UPDATE = 2;
@@ -104,26 +104,58 @@ function createSimulatedFlightData(sessionStartedAt, currentTime) {
 }
 
 window.App = function App() {
-  const [page, setPage] = React.useState("welcome");
-  const [profile, setProfile] = React.useState(null);
+  const [profile, setProfile] = React.useState(function() {
+    const savedProfile = window.sessionStorage.getItem("profile");
+
+    if (savedProfile) {
+      return JSON.parse(savedProfile);
+    }
+
+    return null;
+  });
+
+  const [page, setPage] = React.useState(function() {
+    const savedPage = window.sessionStorage.getItem("page");
+    const savedProfile = window.sessionStorage.getItem("profile");
+
+    if (savedPage && savedProfile) {
+      return savedPage;
+    }
+
+    return "welcome";
+  });
+
   const [invoiceItems, setInvoiceItems] = React.useState([]);
   const sessionStartedAt = React.useRef(Date.now());
   const [flightData, setFlightData] = React.useState(function() {
     return createSimulatedFlightData(sessionStartedAt.current, new Date());
   });
 
-  React.useEffect(function() {
-    function updateFlightData() {
-      setFlightData(createSimulatedFlightData(sessionStartedAt.current, new Date()));
-    }
+React.useEffect(function() {
+  if (profile) {
+    window.sessionStorage.setItem("profile", JSON.stringify(profile));
+  } else {
+    window.sessionStorage.removeItem("profile");
+    window.sessionStorage.removeItem("page");
+  }
+}, [profile]);
 
-    updateFlightData();
-    const intervalId = window.setInterval(updateFlightData, FLIGHT_UPDATE_INTERVAL_MS);
+React.useEffect(function() {
+  window.sessionStorage.setItem("page", page);
+}, [page]);
 
-    return function() {
-      window.clearInterval(intervalId);
-    };
-  }, []);
+React.useEffect(function() {
+  function updateFlightData() {
+    setFlightData(createSimulatedFlightData(sessionStartedAt.current, new Date()));
+  }
+
+  updateFlightData();
+  const intervalId = window.setInterval(updateFlightData, FLIGHT_UPDATE_INTERVAL_MS);
+
+  return function() {
+    window.clearInterval(intervalId);
+  };
+}, []);
 
   function addInvoiceItem(category, name, price, paymentMethod) {
     setInvoiceItems(function(prev) {
@@ -197,6 +229,10 @@ window.App = function App() {
     return <PhoneCallPage setPage={setPage} addInvoiceItem={addInvoiceItem} />;
   }
 
+  if (page === "services") {
+    return <ServicesHelpPage setPage={setPage} />;
+  }
+
   if (page === "reportissue") {
     return <ReportIssuePage setPage={setPage} />;
   }
@@ -239,9 +275,26 @@ window.App = function App() {
   return (
     <PageShell title={"Welcome"} setPage={setPage}>
       <section className="home-grid">
-        <button className="feature-card" onClick={() => setPage("media")}>Media</button>
-        <button className="feature-card" onClick={() => setPage("flight-info")}>Flight Info</button>
-        <button className="feature-card" onClick={() => setPage("food")}>Food & Bev</button>
+        <button className="feature-card" onClick={() => setPage("media")}>
+          Media
+        </button>
+
+        <button className="feature-card" onClick={() => setPage("flight-info")}>
+          Flight Info
+        </button>
+
+        <button className="feature-card" onClick={() => setPage("foodbev")}>
+          Food & Bev
+        </button>
+
+        <button className="feature-card" onClick={() => setPage("dutyfree")}>
+          Shopping
+        </button>
+
+        <button className="feature-card" onClick={() => setPage("services")}>
+          Services / Help
+        </button>
+
         <button className="feature-card" onClick={() => setPage("profile-settings")}>
           Profile/Settings
         </button>

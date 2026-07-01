@@ -51,7 +51,7 @@ window.FoodBeveragePage = function FoodBeveragePage({ setPage, addInvoiceItem })
 
     const timer = setTimeout(() => {
       setStatusIndex(prev => prev + 1);
-    }, 90000); // 90 seconds
+    }, 5000); // 5 seconds
 
     return () => clearTimeout(timer);
   }, [screen, statusIndex]);
@@ -131,7 +131,7 @@ window.FoodBeveragePage = function FoodBeveragePage({ setPage, addInvoiceItem })
   }
 
   return (
-    <PageShell title="Food & Beverage" setPage={setPage} backTo="food">
+    <PageShell title="Food & Beverage" setPage={setPage} backTo="home">
       <h2>Menu</h2>
       <section className="item-menu-grid">
         {menuItems.map(function(item, index) {

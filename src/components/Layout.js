@@ -63,6 +63,14 @@ window.PageShell = function PageShell({ title, children, setPage, backTo }) {
     <div className="app-frame">
       <TopBar />
 
+      <button
+        className="floating-attendant-button"
+        onClick={function() { alert("Flight attendant has been called!"); }}
+        title="Call Flight Attendant"
+      >
+        🔔
+      </button>
+
       <main className="page-content">
         {backTo && (
           <div className="top-back-row">
